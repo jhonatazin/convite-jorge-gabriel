@@ -5,94 +5,290 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Convite de Aniversário - Jorge Gabriel</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: url('background.jpg') no-repeat center center fixed;
-      background-size: cover;
+    * {
       margin: 0;
       padding: 0;
-      text-align: center;
-      color: #fff;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(135deg, #ff6b6b, #4a4ab3);
+      min-height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
-      min-height: 100vh;
+      padding: 20px;
+      color: #fff;
+      position: relative;
+      overflow-x: hidden;
     }
+    
     .container {
-      width: 90%;
-      max-width: 400px;
-      padding: 1.5rem;
-      background: rgba(0, 0, 0, 0.6);
-      border-radius: 10px;
+      width: 100%;
+      max-width: 500px;
+      background: rgba(0, 0, 0, 0.7);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+      position: relative;
+      z-index: 2;
+      padding: 30px;
     }
+    
     h1 {
-      font-size: 2rem;
+      font-size: 2.5rem;
+      color: #ffcc00;
+      text-align: center;
+      margin-bottom: 20px;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    }
+    
+    p {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      margin-bottom: 15px;
+      text-align: center;
+    }
+    
+    strong {
       color: #ffcc00;
     }
-    p, input, button {
-      font-size: 1rem;
+    
+    .countdown {
+      margin: 25px 0;
+      text-align: center;
+      background: rgba(255, 255, 255, 0.15);
+      padding: 20px;
+      border-radius: 15px;
+      backdrop-filter: blur(5px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
     }
+    
+    .countdown h2 {
+      font-size: 1.5rem;
+      margin-bottom: 15px;
+      color: #ffcc00;
+    }
+    
+    .timer {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    
+    .time-unit {
+      background: rgba(0, 0, 0, 0.4);
+      border-radius: 10px;
+      padding: 15px 10px;
+      min-width: 70px;
+    }
+    
+    .time-value {
+      font-size: 1.8rem;
+      font-weight: bold;
+      margin-bottom: 5px;
+      color: #ffcc00;
+    }
+    
+    .time-label {
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    
     form {
-      margin-top: 1.5rem;
+      margin-top: 20px;
+      background: rgba(255, 255, 255, 0.15);
+      padding: 20px;
+      border-radius: 15px;
+      backdrop-filter: blur(5px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
     }
+    
     input[type="text"] {
-      padding: 0.6rem;
+      padding: 12px;
       width: 100%;
-      max-width: 100%;
-      box-sizing: border-box;
-    }
-    button {
-      margin-top: 1rem;
-      padding: 0.7rem 1.2rem;
-      font-size: 1rem;
-      background-color: #ff4444;
-      color: #fff;
-      border: none;
-      cursor: pointer;
       border-radius: 8px;
+      border: none;
+      background: rgba(255, 255, 255, 0.9);
+      font-size: 1rem;
+      margin-bottom: 10px;
     }
+    
+    button {
+      width: 100%;
+      padding: 12px;
+      background: linear-gradient(to right, #ff5252, #ff793f);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 10px;
+    }
+    
+    button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(255, 82, 82, 0.4);
+    }
+    
     .hidden {
       display: none;
     }
+    
     .pix-box {
-      margin-top: 1.5rem;
-      background: rgba(255, 255, 255, 0.2);
-      padding: 1rem;
-      border-radius: 10px;
+      margin-top: 25px;
+      background: rgba(255, 255, 255, 0.15);
+      padding: 20px;
+      border-radius: 15px;
+      backdrop-filter: blur(5px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
     }
-    /* Novos estilos para o botão de cópia */
+    
+    .pix-box h2 {
+      font-size: 1.5rem;
+      margin-bottom: 15px;
+      color: #ffcc00;
+      text-align: center;
+    }
+    
     .pix-key-container {
       display: flex;
       align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
-      margin: 1rem 0;
+      background: rgba(255, 255, 255, 0.9);
+      padding: 10px 15px;
+      border-radius: 10px;
+      margin: 15px 0;
     }
+    
+    .pix-key {
+      flex: 1;
+      color: #333;
+      font-weight: bold;
+      font-size: 1rem;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    
     .copy-btn {
       background: #4CAF50;
       color: white;
       border: none;
-      padding: 0.4rem 0.8rem;
-      border-radius: 5px;
+      padding: 8px 12px;
+      border-radius: 6px;
       cursor: pointer;
       font-size: 0.9rem;
       display: flex;
       align-items: center;
-      gap: 0.3rem;
+      gap: 5px;
+      transition: all 0.3s ease;
     }
+    
     .copy-btn:hover {
-      background: #45a049;
+      background: #388E3C;
     }
+    
     .copy-btn.copied {
       background: #2E7D32;
+    }
+    
+    .pix-qr {
+      text-align: center;
+      margin: 15px 0;
+    }
+    
+    .pix-qr img {
+      max-width: 200px;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      border: 5px solid white;
+    }
+    
+    .confetti {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background-color: #f00;
+      opacity: 0.8;
+      z-index: 1;
+      animation: fall linear forwards;
+    }
+    
+    @keyframes fall {
+      to {
+        transform: translateY(100vh) rotate(360deg);
+      }
+    }
+    
+    .footer {
+      text-align: center;
+      padding-top: 20px;
+      font-size: 0.9rem;
+      opacity: 0.8;
+      margin-top: 10px;
+    }
+    
+    @media (max-width: 480px) {
+      .container {
+        padding: 20px;
+      }
+      
+      h1 {
+        font-size: 2rem;
+      }
+      
+      .time-unit {
+        min-width: 60px;
+        padding: 12px 8px;
+      }
+      
+      .time-value {
+        font-size: 1.5rem;
+      }
     }
   </style>
 </head>
 <body>
+  <!-- Elementos de confete -->
+  <div class="confetti" style="top: 10%; left: 20%; background-color: #ffcc00; animation-duration: 8s;"></div>
+  <div class="confetti" style="top: 5%; left: 50%; background-color: #ff5252; animation-duration: 10s;"></div>
+  <div class="confetti" style="top: 15%; left: 70%; background-color: #4CAF50; animation-duration: 12s;"></div>
+  
   <div class="container">
     <h1>Convite de Aniversário 🎉</h1>
     <p>Você está convidado para comemorar o aniversário de <strong>Jorge Gabriel</strong>!</p>
+    
+    <div class="countdown">
+      <h2>Contagem Regressiva</h2>
+      <div class="timer">
+        <div class="time-unit">
+          <div class="time-value" id="days">00</div>
+          <div class="time-label">Dias</div>
+        </div>
+        
+        <div class="time-unit">
+          <div class="time-value" id="hours">00</div>
+          <div class="time-label">Horas</div>
+        </div>
+        
+        <div class="time-unit">
+          <div class="time-value" id="minutes">00</div>
+          <div class="time-label">Minutos</div>
+        </div>
+        
+        <div class="time-unit">
+          <div class="time-value" id="seconds">00</div>
+          <div class="time-label">Segundos</div>
+        </div>
+      </div>
+    </div>
+    
     <p><strong>📅 28 de julho de 2025</strong><br>
+       <strong>⏰ 15:00 às 20:00</strong><br>
        <strong>📍 Celebre Recepções</strong></p>
 
     <form id="rsvpForm">
@@ -104,9 +300,9 @@
     <div class="pix-box hidden" id="thanksBox">
       <h2>Obrigado por confirmar! 🎁</h2>
       <p>Se quiser presentear, o Jorge Gabriel vai adorar receber um PIX 💖</p>
+      
       <div class="pix-key-container">
-        <strong>Chave PIX:</strong>
-        <span id="pixKey">0af1eaa1-3d0e-477e-8b47-8baf8f105dc0</span>
+        <div class="pix-key" id="pixKey">0af1eaa1-3d0e-477e-8b47-8baf8f105dc0</div>
         <button class="copy-btn" id="copyButton">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M20 9H11C9.89543 9 9 9.89543 9 11V20C9 21.1046 9.89543 22 11 22H20C21.1046 22 22 21.1046 22 20V11C22 9.89543 21.1046 9 20 9Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -115,49 +311,55 @@
           Copiar
         </button>
       </div>
-      <p>Escaneie o QR Code abaixo para fazer um PIX:</p>
-      <img src="pix_qrcode.jpg" alt="QR Code PIX" style="max-width: 100%; border-radius: 8px;">
+      
+      <div class="pix-qr">
+        <p>Escaneie o QR Code abaixo:</p>
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=PIX%3A0af1eaa1-3d0e-477e-8b47-8baf8f105dc0" alt="QR Code PIX">
+      </div>
+    </div>
+    
+    <div class="footer">
+      <p>Esperamos por você para comemorar junto conosco!</p>
     </div>
   </div>
 
   <script>
+    // Contagem regressiva
+    const countdownDate = new Date("July 28, 2025 15:00:00").getTime();
+    
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const distance = countdownDate - now;
+      
+      if (distance < 0) {
+        document.getElementById("days").innerText = "00";
+        document.getElementById("hours").innerText = "00";
+        document.getElementById("minutes").innerText = "00";
+        document.getElementById("seconds").innerText = "00";
+        return;
+      }
+      
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+      
+      document.getElementById("days").innerText = days.toString().padStart(2, '0');
+      document.getElementById("hours").innerText = hours.toString().padStart(2, '0');
+      document.getElementById("minutes").innerText = minutes.toString().padStart(2, '0');
+      document.getElementById("seconds").innerText = seconds.toString().padStart(2, '0');
+    }
+    
+    // Atualiza a contagem a cada segundo
+    setInterval(updateCountdown, 1000);
+    updateCountdown(); // Inicializa imediatamente
+    
+    // Formulário de confirmação de presença
     const form = document.getElementById('rsvpForm');
     const nameInput = document.getElementById('name');
     const thanksBox = document.getElementById('thanksBox');
     const copyButton = document.getElementById('copyButton');
     const pixKey = document.getElementById('pixKey');
-
-    // Função para copiar a chave PIX
-    copyButton.addEventListener('click', () => {
-      const key = pixKey.innerText;
-      
-      // Usando a API Clipboard moderna
-      navigator.clipboard.writeText(key).then(() => {
-        // Feedback visual
-        copyButton.innerHTML = `
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M5 13L9 17L19 7" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          Copiado!
-        `;
-        copyButton.classList.add('copied');
-        
-        // Volta ao estado original após 2 segundos
-        setTimeout(() => {
-          copyButton.innerHTML = `
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M20 9H11C9.89543 9 9 9.89543 9 11V20C9 21.1046 9.89543 22 11 22H20C21.1046 22 22 21.1046 22 20V11C22 9.89543 21.1046 9 20 9Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              <path d="M5 15H4C3.46957 15 2.96086 14.7893 2.58579 14.4142C2.21071 14.0391 2 13.5304 2 13V4C2 3.46957 2.21071 2.96086 2.58579 2.58579C2.96086 2.21071 3.46957 2 4 2H13C13.5304 2 14.0391 2.21071 14.4142 2.58579C14.7893 2.96086 15 3.46957 15 4V5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-            Copiar
-          `;
-          copyButton.classList.remove('copied');
-        }, 2000);
-      }).catch(err => {
-        console.error('Erro ao copiar: ', err);
-        alert('Não foi possível copiar a chave. Tente manualmente.');
-      });
-    });
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
@@ -165,6 +367,7 @@
       if (!name) return alert("Por favor, digite seu nome.");
 
       try {
+        // Simulação de envio para o Google Sheets
         await fetch('https://script.google.com/macros/s/AKfycbyxwS4guOrPGZi2S7J5dcS6zdnVgBESiqklU-u3lkySgftDlzkM7jaYpTtoMuPc6BEe/exec', {
           method: 'POST',
           mode: 'no-cors',
@@ -177,7 +380,66 @@
 
       form.classList.add('hidden');
       thanksBox.classList.remove('hidden');
+      
+      // Rolagem suave para a seção de agradecimento
+      thanksBox.scrollIntoView({ behavior: 'smooth' });
+      
+      // Criar confetes
+      createConfetti();
     });
+    
+    // Função para copiar a chave PIX
+    copyButton.addEventListener('click', () => {
+      const key = pixKey.innerText;
+      
+      navigator.clipboard.writeText(key).then(() => {
+        // Feedback visual
+        const originalHTML = copyButton.innerHTML;
+        copyButton.innerHTML = `
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M5 13L9 17L19 7" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Copiado!
+        `;
+        copyButton.classList.add('copied');
+        
+        // Volta ao estado original após 2 segundos
+        setTimeout(() => {
+          copyButton.innerHTML = originalHTML;
+          copyButton.classList.remove('copied');
+        }, 2000);
+      }).catch(err => {
+        console.error('Erro ao copiar: ', err);
+        alert('Não foi possível copiar a chave. Tente manualmente.');
+      });
+    });
+    
+    // Criar elementos de confete
+    function createConfetti() {
+      const colors = ['#ffcc00', '#ff5252', '#4CAF50', '#2196F3', '#9C27B0'];
+      
+      for (let i = 0; i < 20; i++) {
+        const confetti = document.createElement('div');
+        confetti.className = 'confetti';
+        confetti.style.left = Math.random() * 100 + '%';
+        confetti.style.top = '-10px';
+        confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        confetti.style.width = (Math.random() * 10 + 5) + 'px';
+        confetti.style.height = (Math.random() * 10 + 5) + 'px';
+        confetti.style.animation = `fall ${Math.random() * 5 + 3}s linear forwards`;
+        document.body.appendChild(confetti);
+        
+        // Remove após animação
+        setTimeout(() => {
+          confetti.remove();
+        }, 5000);
+      }
+    }
+    
+    // Confetes iniciais
+    window.onload = function() {
+      createConfetti();
+    };
   </script>
 </body>
 </html>
