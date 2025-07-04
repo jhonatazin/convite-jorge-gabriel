@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -61,6 +60,32 @@
       padding: 1rem;
       border-radius: 10px;
     }
+    /* Novos estilos para o botão de cópia */
+    .pix-key-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      margin: 1rem 0;
+    }
+    .copy-btn {
+      background: #4CAF50;
+      color: white;
+      border: none;
+      padding: 0.4rem 0.8rem;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+    .copy-btn:hover {
+      background: #45a049;
+    }
+    .copy-btn.copied {
+      background: #2E7D32;
+    }
   </style>
 </head>
 <body>
@@ -79,8 +104,19 @@
     <div class="pix-box hidden" id="thanksBox">
       <h2>Obrigado por confirmar! 🎁</h2>
       <p>Se quiser presentear, o Jorge Gabriel vai adorar receber um PIX 💖</p>
-      <p><strong>Chave PIX:</strong> <span id="pixKey">jhonatagabriel166@gmail.com</span></p>
-      <button onclick="copyPix()">Copiar chave PIX</button>
+      <div class="pix-key-container">
+        <strong>Chave PIX:</strong>
+        <span id="pixKey">0af1eaa1-3d0e-477e-8b47-8baf8f105dc0</span>
+        <button class="copy-btn" id="copyButton">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20 9H11C9.89543 9 9 9.89543 9 11V20C9 21.1046 9.89543 22 11 22H20C21.1046 22 22 21.1046 22 20V11C22 9.89543 21.1046 9 20 9Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M5 15H4C3.46957 15 2.96086 14.7893 2.58579 14.4142C2.21071 14.0391 2 13.5304 2 13V4C2 3.46957 2.21071 2.96086 2.58579 2.58579C2.96086 2.21071 3.46957 2 4 2H13C13.5304 2 14.0391 2.21071 14.4142 2.58579C14.7893 2.96086 15 3.46957 15 4V5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Copiar
+        </button>
+      </div>
+      <p>Escaneie o QR Code abaixo para fazer um PIX:</p>
+      <img src="pix_qrcode.jpg" alt="QR Code PIX" style="max-width: 100%; border-radius: 8px;">
     </div>
   </div>
 
@@ -88,6 +124,40 @@
     const form = document.getElementById('rsvpForm');
     const nameInput = document.getElementById('name');
     const thanksBox = document.getElementById('thanksBox');
+    const copyButton = document.getElementById('copyButton');
+    const pixKey = document.getElementById('pixKey');
+
+    // Função para copiar a chave PIX
+    copyButton.addEventListener('click', () => {
+      const key = pixKey.innerText;
+      
+      // Usando a API Clipboard moderna
+      navigator.clipboard.writeText(key).then(() => {
+        // Feedback visual
+        copyButton.innerHTML = `
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M5 13L9 17L19 7" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Copiado!
+        `;
+        copyButton.classList.add('copied');
+        
+        // Volta ao estado original após 2 segundos
+        setTimeout(() => {
+          copyButton.innerHTML = `
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M20 9H11C9.89543 9 9 9.89543 9 11V20C9 21.1046 9.89543 22 11 22H20C21.1046 22 22 21.1046 22 20V11C22 9.89543 21.1046 9 20 9Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M5 15H4C3.46957 15 2.96086 14.7893 2.58579 14.4142C2.21071 14.0391 2 13.5304 2 13V4C2 3.46957 2.21071 2.96086 2.58579 2.58579C2.96086 2.21071 3.46957 2 4 2H13C13.5304 2 14.0391 2.21071 14.4142 2.58579C14.7893 2.96086 15 3.46957 15 4V5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Copiar
+          `;
+          copyButton.classList.remove('copied');
+        }, 2000);
+      }).catch(err => {
+        console.error('Erro ao copiar: ', err);
+        alert('Não foi possível copiar a chave. Tente manualmente.');
+      });
+    });
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
@@ -108,12 +178,6 @@
       form.classList.add('hidden');
       thanksBox.classList.remove('hidden');
     });
-
-    function copyPix() {
-      const key = document.getElementById('pixKey').innerText;
-      navigator.clipboard.writeText(key);
-      alert('Chave PIX copiada!');
-    }
   </script>
 </body>
 </html>
