@@ -17,7 +17,6 @@
       justify-content: center;
       align-items: center;
       min-height: 100vh;
-      overflow: hidden; /* Adicionado para evitar barras de rolagem durante o efeito */
     }
     .container {
       width: 90%;
@@ -25,60 +24,159 @@
       padding: 1.5rem;
       background: rgba(0, 0, 0, 0.6);
       border-radius: 10px;
-      position: relative; /* Garante que o conteúdo fique acima dos confetes */
-      z-index: 2;
     }
-    /* Restante do CSS permanece igual */
+    h1 {
+      font-size: 2rem;
+      color: #ffcc00;
+    }
+    p, input, button {
+      font-size: 1rem;
+    }
+    form {
+      margin-top: 1.5rem;
+    }
+    input[type="text"] {
+      padding: 0.6rem;
+      width: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
+    }
+    button {
+      margin-top: 1rem;
+      padding: 0.7rem 1.2rem;
+      font-size: 1rem;
+      background-color: #ff4444;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      border-radius: 8px;
+    }
+    .hidden {
+      display: none;
+    }
+    .pix-box {
+      margin-top: 1.5rem;
+      background: rgba(255, 255, 255, 0.2);
+      padding: 1rem;
+      border-radius: 10px;
+    }
+    /* Novos estilos para o botão de cópia */
+    .pix-key-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      margin: 1rem 0;
+    }
+    .copy-btn {
+      background: #4CAF50;
+      color: white;
+      border: none;
+      padding: 0.4rem 0.8rem;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+    .copy-btn:hover {
+      background: #45a049;
+    }
+    .copy-btn.copied {
+      background: #2E7D32;
+    }
+    /* Estilos para a contagem regressiva */
+    .countdown {
+      margin: 1rem 0;
+      padding: 0.8rem;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+    }
+    .countdown h2 {
+      margin: 0 0 0.5rem 0;
+      font-size: 1.1rem;
+      color: #ffcc00;
+    }
+    .timer {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+    .time-unit {
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 5px;
+      padding: 0.4rem;
+      min-width: 45px;
+    }
+    .time-value {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #ffcc00;
+    }
+    .time-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+    }
   </style>
 </head>
 <body>
   <div class="container">
-    <!-- Todo o conteúdo existente permanece aqui -->
+    <h1>Convite de Aniversário 🎉</h1>
+    <p>Você está convidado para comemorar o aniversário de <strong>Jorge Gabriel</strong>!</p>
+    <p><strong>📅 28 de julho</strong><br>
+       <strong>📍 Celebre Recepções</strong><br>
+       <strong>⏰ 18:00</strong></p> <!-- Linha adicionada aqui -->
+    
+    <!-- Contagem regressiva adicionada aqui -->
+    <div class="countdown">
+      <h2>Contagem Regressiva</h2>
+      <div class="timer">
+        <div class="time-unit">
+          <div class="time-value" id="days">00</div>
+          <div class="time-label">Dias</div>
+        </div>
+        <div class="time-unit">
+          <div class="time-value" id="hours">00</div>
+          <div class="time-label">Horas</div>
+        </div>
+        <div class="time-unit">
+          <div class="time-value" id="minutes">00</div>
+          <div class="time-label">Min</div>
+        </div>
+        <div class="time-unit">
+          <div class="time-value" id="seconds">00</div>
+          <div class="time-label">Seg</div>
+        </div>
+      </div>
+    </div>
+
+    <form id="rsvpForm">
+      <p>Confirme sua presença:</p>
+      <input type="text" id="name" placeholder="Digite seu nome" required /> <br />
+      <button type="submit">Confirmar Presença</button>
+    </form>
+
+    <div class="pix-box hidden" id="thanksBox">
+      <h2>Obrigado por confirmar!</h2>
+      <p>Como sugestão de presente, Jorge Gabriel vai adorar receber um PIX 💖</p>
+      <div class="pix-key-container">
+        <strong>Chave PIX:</strong>
+        <span id="pixKey">0af1eaa1-3d0e-477e-8b47-8baf8f105dc0</span>
+        <button class="copy-btn" id="copyButton">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20 9H11C9.89543 9 9 9.89543 9 11V20C9 21.1046 9.89543 22 11 22H20C21.1046 22 22 21.1046 22 20V11C22 9.89543 21.1046 9 20 9Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M5 15H4C3.46957 15 2.96086 14.7893 2.58579 14.4142C2.21071 14.0391 2 13.5304 2 13V4C2 3.46957 2.21071 2.96086 2.58579 2.58579C2.96086 2.21071 3.46957 2 4 2H13C13.5304 2 14.0391 2.21071 14.4142 2.58579C14.7893 2.96086 15 3.46957 15 4V5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Copiar
+        </button>
+      </div>
+      <p>Escaneie o QR Code abaixo para fazer um PIX:</p>
+      <img src="pix_qrcode.jpg" alt="QR Code PIX" style="max-width: 100%; border-radius: 8px;">
+    </div>
   </div>
 
-  <!-- Script para efeito de confetes -->
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
-  
   <script>
-    // Função para disparar confetes
-    function fireConfetti() {
-      const duration = 3 * 1000; // 3 segundos
-      const animationEnd = Date.now() + duration;
-      const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 1 };
-      
-      function randomInRange(min, max) {
-        return Math.random() * (max - min) + min;
-      }
-      
-      const interval = setInterval(function() {
-        const timeLeft = animationEnd - Date.now();
-        
-        if (timeLeft <= 0) {
-          return clearInterval(interval);
-        }
-        
-        const particleCount = 50 * (timeLeft / duration);
-        
-        // Disparar confetes da parte inferior esquerda
-        confetti({
-          ...defaults,
-          particleCount,
-          origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 }
-        });
-        
-        // Disparar confetes da parte inferior direita
-        confetti({
-          ...defaults,
-          particleCount,
-          origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 }
-        });
-      }, 250);
-    }
-    
-    // Dispara confetes quando a página carrega
-    window.addEventListener('load', fireConfetti);
-    
-    // Restante do código JavaScript permanece igual
     // Contagem regressiva para 28 de julho de 2025
     const countdownDate = new Date("July 28, 2025 00:00:00").getTime();
     
@@ -160,9 +258,6 @@
 
       form.classList.add('hidden');
       thanksBox.classList.remove('hidden');
-      
-      // Dispara confetes novamente ao confirmar presença
-      fireConfetti();
     });
   </script>
 </body>
